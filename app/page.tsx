@@ -27,22 +27,41 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { Calendar } from "@/components/ui/calendar";
 import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "@/components/ui/command";
+import { Footer } from "@/components/footer";
 
-import { CalendarIcon, Bell, Check, Menu, Search, Terminal } from "lucide-react";
+import { CalendarIcon, Bell, Check, Menu, Search, Terminal, Moon, Sun, ShieldCheck } from "lucide-react";
+import { useTheme } from "next-themes";
+import { EverleapLogo } from "@/components/everleap-logo";
 
 export default function Home() {
   const [date, setDate] = React.useState<Date | undefined>(new Date())
 
+  const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = React.useState(false)
+
+  // Avoid hydration mismatch
+  React.useEffect(() => {
+    setMounted(true)
+  }, [])
+
   return (
     <div className="min-h-screen bg-background text-foreground font-sans pb-20">
-      <div className="border-b bg-card">
-        <div className="container mx-auto max-w-5xl py-6 px-4 flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold tracking-tight">Product Design System</h1>
-            <p className="text-muted-foreground text-sm">Mobile-first components & foundations</p>
-          </div>
-          <div className="flex gap-2">
-            <Button size="sm" variant="outline" onClick={() => toast.success("Event has been created")}>Test Toast</Button>
+      <div className="border-b bg-card/60 backdrop-blur-md sticky top-0 z-50">
+        <div className="container mx-auto max-w-5xl py-3 px-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <EverleapLogo />
+          <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end">
+            {mounted && (
+              <Button
+                variant="ghost"
+                size="icon"
+                className="rounded-full w-9 h-9"
+                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              >
+                {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+                <span className="sr-only">Toggle theme</span>
+              </Button>
+            )}
+            <Button size="sm" variant="outline" className="hidden sm:inline-flex" onClick={() => toast.success("Event has been created")}>Test Toast</Button>
             <Button size="sm">Get Started</Button>
           </div>
         </div>
@@ -52,7 +71,7 @@ export default function Home() {
 
         {/* Layout & Typography */}
         <section className="space-y-6">
-          <div className="flex items-center gap-2 border-b pb-2">
+          <div className="flex items-center gap-2 border-b/20 pb-2">
             <Badge variant="outline">1.0</Badge>
             <h2 className="text-xl font-semibold">Foundations</h2>
           </div>
@@ -78,7 +97,7 @@ export default function Home() {
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-5 gap-2 text-center text-[10px] text-white">
                   <div className="bg-primary h-12 rounded-md flex items-center justify-center">Primary</div>
-                  <div className="bg-secondary text-secondary-foreground h-12 rounded-md flex items-center justify-center border">Secondary</div>
+                  <div className="bg-secondary text-secondary-foreground h-12 rounded-md flex items-center justify-center">Secondary</div>
                   <div className="bg-destructive h-12 rounded-md flex items-center justify-center">Destruct</div>
                   <div className="bg-muted text-muted-foreground h-12 rounded-md flex items-center justify-center">Muted</div>
                   <div className="bg-accent text-accent-foreground h-12 rounded-md flex items-center justify-center">Accent</div>
@@ -99,7 +118,7 @@ export default function Home() {
 
         {/* Form Components */}
         <section className="space-y-6">
-          <div className="flex items-center gap-2 border-b pb-2">
+          <div className="flex items-center gap-2 border-b/20 pb-2">
             <Badge variant="outline">2.0</Badge>
             <h2 className="text-xl font-semibold">Interactive Inputs</h2>
           </div>
@@ -162,7 +181,7 @@ export default function Home() {
                   </SelectContent>
                 </Select>
 
-                <div className="border rounded-md p-4 flex justify-center bg-card">
+                <div className="rounded-md p-4 flex justify-center bg-card">
                   <Calendar
                     mode="single"
                     selected={date}
@@ -177,7 +196,7 @@ export default function Home() {
 
         {/* Feedback & Overlays */}
         <section className="space-y-6">
-          <div className="flex items-center gap-2 border-b pb-2">
+          <div className="flex items-center gap-2 border-b/20 pb-2">
             <Badge variant="outline">3.0</Badge>
             <h2 className="text-xl font-semibold">Feedback & Overlays</h2>
           </div>
@@ -294,7 +313,7 @@ export default function Home() {
 
         {/* Navigation */}
         <section className="space-y-6">
-          <div className="flex items-center gap-2 border-b pb-2">
+          <div className="flex items-center gap-2 border-b/20 pb-2">
             <Badge variant="outline">4.0</Badge>
             <h2 className="text-xl font-semibold">Navigation & Structure</h2>
           </div>
@@ -306,8 +325,8 @@ export default function Home() {
                   <TabsTrigger value="account">Account</TabsTrigger>
                   <TabsTrigger value="password">Password</TabsTrigger>
                 </TabsList>
-                <TabsContent value="account"><div className="p-4 border rounded-md">Make changes to your account here.</div></TabsContent>
-                <TabsContent value="password"><div className="p-4 border rounded-md">Change your password here.</div></TabsContent>
+                <TabsContent value="account"><div className="p-4 rounded-md bg-muted/20">Make changes to your account here.</div></TabsContent>
+                <TabsContent value="password"><div className="p-4 rounded-md bg-muted/20">Change your password here.</div></TabsContent>
               </Tabs>
 
               <Accordion type="single" collapsible className="w-full">
@@ -327,7 +346,7 @@ export default function Home() {
             </div>
 
             <div className="space-y-4">
-              <div className="flex items-center gap-4 p-4 border rounded-md">
+              <div className="flex items-center gap-4 p-4 rounded-md bg-muted/20">
                 <Avatar>
                   <AvatarImage src="https://github.com/shadcn.png" />
                   <AvatarFallback>CN</AvatarFallback>
@@ -390,7 +409,46 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Design System Checklist */}
+        <section className="space-y-6 pt-8">
+          <Card className="overflow-hidden">
+            <CardHeader className="bg-primary/5 border-b">
+              <div className="flex items-center gap-2">
+                <ShieldCheck className="h-5 w-5 text-primary" />
+                <CardTitle>Design System Checklist</CardTitle>
+              </div>
+              <CardDescription>Final validation of project standards and consistency</CardDescription>
+            </CardHeader>
+            <CardContent className="p-6">
+              <div className="grid sm:grid-cols-2 gap-6">
+                {[
+                  { label: "Typography defined", checked: true },
+                  { label: "Colors defined", checked: true },
+                  { label: "Spacing scale", checked: true },
+                  { label: "Border/radius consistent", checked: true },
+                  { label: "Inputs validated", checked: true },
+                  { label: "Buttons have all states", checked: true },
+                  { label: "Modals & overlays consistent", checked: true },
+                  { label: "Tables responsive", checked: true },
+                  { label: "Accessibility pass (basic)", checked: true },
+                ].map((item, i) => (
+                  <div key={i} className="flex items-center space-x-3 p-3 rounded-md bg-muted/30 transition-colors hover:bg-muted/50">
+                    <Checkbox id={`check-${i}`} checked={item.checked} />
+                    <label
+                      htmlFor={`check-${i}`}
+                      className="text-sm font-medium leading-none cursor-pointer flex-1"
+                    >
+                      {item.label} {item.checked && "✅"}
+                    </label>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </section>
+
       </main>
+      <Footer />
       <Toaster />
     </div>
   );
