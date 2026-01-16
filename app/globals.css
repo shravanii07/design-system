@@ -87,8 +87,8 @@
   /* Blue 500 */
   --info-foreground: #ffffff;
 
-  --ds-border: var(--muted);
-  /* Muted border as requested */
+  --ds-border: rgba(15, 23, 42, 0.08);
+  /* Slate 900 at 8% opacity */
   --ds-ring: #06bfb3;
   --ds-radius: 0.375rem;
 
@@ -136,10 +136,9 @@
   /* Blue 900 */
   --info-foreground: #eff6ff;
 
-  --ds-border: var(--muted);
-  /* Muted border as requested */
+  --ds-border: rgba(248, 250, 252, 0.08);
+  /* Slate 50 at 8% opacity */
   --ds-ring: #06bfb3;
-  --ds-radius: 0.375rem;
 
   --card: #020617;
   --card-foreground: #f8fafc;

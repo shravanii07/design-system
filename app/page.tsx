@@ -27,7 +27,6 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { Calendar } from "@/components/ui/calendar";
 import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "@/components/ui/command";
-import { Footer } from "@/components/footer";
 
 import { CalendarIcon, Bell, Check, Menu, Search, Terminal, Moon, Sun, ShieldCheck } from "lucide-react";
 import { useTheme } from "next-themes";
@@ -448,7 +447,6 @@ export default function Home() {
         </section>
 
       </main>
-      <Footer />
       <Toaster />
     </div>
   );
